@@ -10,6 +10,9 @@ import SwiftUI
 struct CreateTodoView: View {
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var context
+    
+    @State private var item = ToDoItem()
     
     var body: some View {
         List {
@@ -18,6 +21,9 @@ struct CreateTodoView: View {
                        selection: .constant(.now))
             Toggle("Important?", isOn: .constant(false))
             Button("Create") {
+                withAnimation {
+                    context.insert(item)
+                }
                 dismiss()
             }
         }
@@ -27,4 +33,5 @@ struct CreateTodoView: View {
 
 #Preview {
     CreateTodoView()
+        .modelContainer(for: ToDoItem.self)
 }
