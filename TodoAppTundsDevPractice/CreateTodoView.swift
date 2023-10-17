@@ -16,10 +16,10 @@ struct CreateTodoView: View {
     
     var body: some View {
         List {
-            TextField("Name", text: .constant(""))
+            TextField("Name", text: $item.title)
             DatePicker("Choose a date",
-                       selection: .constant(.now))
-            Toggle("Important?", isOn: .constant(false))
+                       selection: $item.timestamp)
+            Toggle("Important?", isOn: $item.isCritical)
             Button("Create") {
                 withAnimation {
                     context.insert(item)
@@ -31,7 +31,7 @@ struct CreateTodoView: View {
     }
 }
 
-#Preview {
-    CreateTodoView()
-        .modelContainer(for: ToDoItem.self)
-}
+//#Preview {
+//    CreateTodoView()
+//        .modelContainer(for: ToDoItem.self)
+//}
