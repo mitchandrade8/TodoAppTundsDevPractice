@@ -17,3 +17,14 @@ import Foundation
 
 // Updating in Crud can be confusing
 /// Espically in Core Data, Swift Data is not as complicated
+
+
+// MARK: - Need to
+
+// Need to go in depth on Swift Data, Core data and Cloudkit
+
+// Relationships, persisting and manipulating real life data
+
+// CRUD operations
+
+// Think i will just build apps with Youtubes and Go through paul hudsons SwiftData book 
