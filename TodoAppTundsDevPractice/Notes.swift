@@ -27,4 +27,4 @@ import Foundation
 
 // CRUD operations
 
-// Think i will just build apps with Youtubes and Go through paul hudsons SwiftData book 
+// Think i will just build apps with Youtubes and Go through paul hudsons SwiftData book
