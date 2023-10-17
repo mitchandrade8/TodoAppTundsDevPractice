@@ -14,6 +14,7 @@
 		7444AF8D2ADD4F77008CC60C /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF8C2ADD4F77008CC60C /* ToDoItem.swift */; };
 		7444AF8F2ADD517F008CC60C /* CreateTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF8E2ADD517F008CC60C /* CreateTodoView.swift */; };
 		7444AF912ADD53EB008CC60C /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF902ADD53EB008CC60C /* Notes.swift */; };
+		7444AF932ADF029C008CC60C /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF922ADF029C008CC60C /* UpdateToDoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		7444AF8C2ADD4F77008CC60C /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		7444AF8E2ADD517F008CC60C /* CreateTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoView.swift; sourceTree = "<group>"; };
 		7444AF902ADD53EB008CC60C /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
+		7444AF922ADF029C008CC60C /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				7444AF7E2ADD4F58008CC60C /* TodoAppTundsDevPracticeApp.swift */,
 				7444AF802ADD4F58008CC60C /* ContentView.swift */,
 				7444AF8E2ADD517F008CC60C /* CreateTodoView.swift */,
+				7444AF922ADF029C008CC60C /* UpdateToDoView.swift */,
 				7444AF8C2ADD4F77008CC60C /* ToDoItem.swift */,
 				7444AF902ADD53EB008CC60C /* Notes.swift */,
 				7444AF822ADD4F5A008CC60C /* Assets.xcassets */,
@@ -149,6 +152,7 @@
 				7444AF812ADD4F58008CC60C /* ContentView.swift in Sources */,
 				7444AF912ADD53EB008CC60C /* Notes.swift in Sources */,
 				7444AF7F2ADD4F58008CC60C /* TodoAppTundsDevPracticeApp.swift in Sources */,
+				7444AF932ADF029C008CC60C /* UpdateToDoView.swift in Sources */,
 				7444AF8F2ADD517F008CC60C /* CreateTodoView.swift in Sources */,
 				7444AF8D2ADD4F77008CC60C /* ToDoItem.swift in Sources */,
 			);
