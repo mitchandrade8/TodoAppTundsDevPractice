@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct Category {
+@Model
+class Category {
     
     var title: String
     
@@ -34,6 +36,13 @@ struct CreateCategoryView: View {
             }
         }
         .navigationTitle("Add New Category")
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Dismiss") {
+                    dismiss()
+                }
+            }
+        }
     }
 }
 

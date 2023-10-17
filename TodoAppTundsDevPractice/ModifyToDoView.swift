@@ -7,12 +7,57 @@
 
 import SwiftUI
 
-struct ModifyToDoView: View {
+struct CreateTodoView: View {
+    
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
+        
+    @State var item = Item()
+    @State var selectedCategory: Category?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            
+            Section("To do title") {
+                TextField("Name", text: $item.title)
+            }
+            
+            Section {
+                DatePicker("Choose a date",
+                           selection: $item.timestamp)
+                Toggle("Important?", isOn: $item.isCritical)
+            }
+
+            
+            Section {
+                Button("Create") {
+                    dismiss()
+                }
+            }
+
+        }
+        .navigationTitle("Create ToDo")
+        .toolbar {
+            
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Dismiss") {
+                    dismiss()
+                }
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button("Done") {
+                    dismiss()
+                }
+                .disabled(item.title.isEmpty)
+            }
+        }
     }
 }
 
 #Preview {
-    ModifyToDoView()
+    NavigationStack {
+        CreateTodoView()
+            .modelContainer(for: Item.self)
+    }
 }

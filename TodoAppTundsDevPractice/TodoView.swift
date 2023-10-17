@@ -7,31 +7,32 @@
 
 import SwiftUI
 
-struct CreateTodoView: View {
+struct TodoView: View {
     
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.modelContext) var context
-    
-    @State private var item = ToDoItem()
+    let item: Item
     
     var body: some View {
-        List {
-            TextField("Name", text: $item.title)
-            DatePicker("Choose a date",
-                       selection: $item.timestamp)
-            Toggle("Important?", isOn: $item.isCritical)
-            Button("Create") {
-                withAnimation {
-                    context.insert(item)
-                }
-                dismiss()
+        VStack(alignment: .leading) {
+            
+            if item.isCritical {
+                Image(systemName: "exclamationmark.3")
+                    .symbolVariant(.fill)
+                    .foregroundColor(.red)
+                    .font(.largeTitle)
+                    .bold()
             }
+
+            Text(item.title)
+                .font(.largeTitle)
+                .bold()
+        
+            Text("\(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                .font(.callout)
         }
-        .navigationTitle("Create ToDo")
+        
     }
 }
 
-//#Preview {
-//    CreateTodoView()
-//        .modelContainer(for: ToDoItem.self)
-//}
+#Preview {
+    TodoView(item: .dummy)
+}

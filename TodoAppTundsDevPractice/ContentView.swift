@@ -10,18 +10,21 @@ import SwiftData
 
 struct ContentView: View {
     
-    @Environment(\.modelContext) var context
+    @Environment(\.modelContext) private var modelContext
+    @Query private var items: [Item]
     
-    @State private var showCreate = false
-    @State private var toDoToEdit: ToDoItem?
-    @Query private var items: [ToDoItem]
+    @State private var showCreateCategory = false
+    @State private var showCreateToDo = false
+    @State private var toDoToEdit: Item?
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(items) { item in
+                    
                     HStack {
-                        VStack {
+                        VStack(alignment: .leading) {
+                            
                             if item.isCritical {
                                 Image(systemName: "exclamationmark.3")
                                     .symbolVariant(.fill)
@@ -36,7 +39,9 @@ struct ContentView: View {
                             
                             Text("\(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .shortened))")
                                 .font(.callout)
+                            
                         }
+                        
                         
                         Spacer()
                         
@@ -44,7 +49,6 @@ struct ContentView: View {
                             withAnimation {
                                 item.isCompleted.toggle()
                             }
-                            
                         } label: {
                             
                             Image(systemName: "checkmark")
@@ -55,13 +59,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                     }
                     .swipeActions {
+                        
                         Button(role: .destructive) {
+                            
                             withAnimation {
-                                context.delete(item)
+                                modelContext.delete(item)
                             }
+                            
                         } label: {
-                            Label("Delete", systemImage: "trash")
-                                .symbolVariant(.fill)
+                            Label("Delete", systemImage: "trash.fill")
                         }
                         
                         Button {
@@ -69,37 +75,69 @@ struct ContentView: View {
                         } label: {
                             Label("Edit", systemImage: "pencil")
                         }
-                        .tint(.indigo)
-
+                        .tint(.orange)
+                        
                     }
                 }
             }
             .navigationTitle("My To Do List")
-                .toolbar {
-                    ToolbarItem {
-                        Button(action: {
-                            showCreate.toggle()
-                        }, label: {
-                            Label("Add Item", systemImage: "plus")
-                        })
+            .sheet(item: $toDoToEdit,
+                   onDismiss: {
+                toDoToEdit = nil
+            },
+                   content: { editItem in
+                NavigationStack {
+                    UpdateToDoView(item: editItem)
+                        .interactiveDismissDisabled()
+                }
+            })
+            .sheet(isPresented: $showCreateCategory,
+                   content: {
+                NavigationStack {
+                    CreateCategoryView()
+                }
+            })
+            .sheet(isPresented: $showCreateToDo,
+                   content: {
+                NavigationStack {
+                    CreateTodoView()
+                }
+            })
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("New Category") {
+                        showCreateCategory.toggle()
                     }
                 }
-                .sheet(isPresented: $showCreate, content: {
-                    NavigationStack {
-                        CreateTodoView()
-                    }
+            }
+            .safeAreaInset(edge: .bottom,
+                           alignment: .leading) {
+                Button(action: {
+                    showCreateToDo.toggle()
+                }, label: {
+                    Label("New ToDo", systemImage: "plus")
+                        .bold()
+                        .font(.title2)
+                        .padding(8)
+                        .background(.gray.opacity(0.1),
+                                    in: Capsule())
+                        .padding(.leading)
+                        .symbolVariant(.circle.fill)
+                    
                 })
-                .sheet(item: $toDoToEdit) {
-                    toDoToEdit = nil
-                } content: { item in
-                    UpdateToDoView(item: item)
-                }
-
+                
+            }
         }
-        
+    }
+    
+    private func delete(item: Item) {
+        withAnimation {
+            modelContext.delete(item)
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: Item.self, inMemory: true)
 }
