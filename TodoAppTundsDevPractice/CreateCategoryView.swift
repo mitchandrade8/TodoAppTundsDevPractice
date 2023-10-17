@@ -11,7 +11,10 @@ import SwiftData
 @Model
 class Category {
     
+    @Attribute(.unique)
     var title: String
+    
+    var items: [Item]?
     
     init(title: String = " ") {
         self.title = title
@@ -21,8 +24,10 @@ class Category {
 struct CreateCategoryView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) var modelContext
     
     @State private var title: String = ""
+    @Query private var categories: [Category]
     
     var body: some View {
         List {
@@ -30,9 +35,15 @@ struct CreateCategoryView: View {
                 TextField("Enter title here",
                 text: $title)
                 Button("Add Category") {
-                    
+                    modelContext.insert(Category(title: title))
                 }
                 .disabled(title.isEmpty)
+            }
+            
+            Section("Categories") {
+                ForEach(categories) { category in
+                    Text(category.title)
+                }
             }
         }
         .navigationTitle("Add New Category")

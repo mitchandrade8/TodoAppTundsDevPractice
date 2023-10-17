@@ -14,6 +14,9 @@ final class Item {
     var timestamp: Date
     var isCritical: Bool
     var isCompleted: Bool
+    
+    @Relationship(deleteRule: .nullify, inverse: \Category.items)
+    var category: Category?
 
     init(title: String = "",
          timestamp: Date = .now,
