@@ -40,6 +40,15 @@ struct ContentView: View {
                             Text("\(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .shortened))")
                                 .font(.callout)
                             
+                            if let category = item.category {
+                                Text(category.title)
+                                    .foregroundStyle(Color.blue)
+                                    .bold()
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 8)
+                                    .background(Color.blue.opacity(0.1), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            }
+                            
                         }
                         
                         

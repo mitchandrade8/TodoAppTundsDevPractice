@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CreateTodoView: View {
     
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
         
+    @Query private var categories: [Category]
+    
     @State var item = Item()
     @State var selectedCategory: Category?
     
@@ -27,10 +30,26 @@ struct CreateTodoView: View {
                            selection: $item.timestamp)
                 Toggle("Important?", isOn: $item.isCritical)
             }
+            
+            Section {
+                Picker("", selection: $selectedCategory) {
+                    
+                    ForEach(categories) { category in
+                        Text(category.title)
+                            .tag(category as Category?)
+                    }
+                    
+                    Text("None")
+                        .tag(nil as Category?)
+                }
+                .labelsHidden()
+                .pickerStyle(.inline)
+            }
 
             
             Section {
                 Button("Create") {
+                    save()
                     dismiss()
                 }
             }
@@ -47,11 +66,21 @@ struct CreateTodoView: View {
             
             ToolbarItem(placement: .primaryAction) {
                 Button("Done") {
+                    save()
                     dismiss()
                 }
                 .disabled(item.title.isEmpty)
             }
         }
+    }
+}
+
+private extension CreateTodoView {
+    
+    func save() {
+        modelContext.insert(item)
+        item.category = selectedCategory
+        selectedCategory?.items?.append(item)
     }
 }
 
