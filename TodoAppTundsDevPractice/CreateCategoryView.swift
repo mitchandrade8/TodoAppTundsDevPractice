@@ -35,7 +35,12 @@ struct CreateCategoryView: View {
                 TextField("Enter title here",
                 text: $title)
                 Button("Add Category") {
-                    modelContext.insert(Category(title: title))
+                    withAnimation {
+                        // Fixed a bug with delete a recently created Category
+                        let category = Category(title: title)
+                        modelContext.insert(category)
+                        category.items = []
+                    }
                 }
                 .disabled(title.isEmpty)
             }
@@ -43,6 +48,16 @@ struct CreateCategoryView: View {
             Section("Categories") {
                 ForEach(categories) { category in
                     Text(category.title)
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                withAnimation {
+                                    modelContext.delete(category)
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash.fill")
+                            }
+
+                        }
                 }
             }
         }
