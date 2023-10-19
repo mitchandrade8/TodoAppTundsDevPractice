@@ -8,6 +8,26 @@
 import SwiftUI
 import SwiftData
 
+enum SortOption: String, CaseIterable {
+    case title
+    case date
+    case category
+}
+
+extension SortOption {
+    
+    var systemImage: String {
+        switch self {
+        case .title:
+            "textformat.size.larger"
+        case .date:
+            "calendar"
+        case .category:
+            "folder"
+        }
+    }
+}
+
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
@@ -18,6 +38,7 @@ struct ContentView: View {
     @State private var showCreateToDo = false
     @State private var toDoToEdit: Item?
     
+    @State private var selectedSortOption = SortOption.allCases.first!
     
     // Computed Property
     var filteredItems: [Item] {
@@ -147,10 +168,24 @@ struct ContentView: View {
                 }
             })
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("New Category") {
-                        showCreateCategory.toggle()
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                
+                    Menu {
+                        Picker("", selection: $selectedSortOption) {
+                            ForEach(SortOption.allCases,
+                                    id: \.rawValue) { option in
+                                Label(option.rawValue.capitalized,
+                                      systemImage: option.systemImage)
+                                    .tag(option)
+                            }
+                        }
+                        .labelsHidden()
+
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .symbolVariant(.circle)
                     }
+
                 }
             }
             .safeAreaInset(edge: .bottom,
