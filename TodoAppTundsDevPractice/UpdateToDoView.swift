@@ -37,14 +37,30 @@ struct UpdateToDoView: View {
                 TextField("Name", text: $item.title)
             }
             
-            Section {
+            Section("General") {
                 DatePicker("Choose a date",
                            selection: $item.timestamp)
                 Toggle("Important?", isOn: $item.isCritical)
             }
             
+            Section("Select A Category") {
+                Picker("", selection: $selectedCategory) {
+                    
+                    ForEach(categories) { category in
+                        Text(category.title)
+                            .tag(category as Category?)
+                    }
+                    
+                    Text("None")
+                        .tag(nil as Category?)
+                }
+                .labelsHidden()
+                .pickerStyle(.inline)
+            }
+            
             Section {
                 Button("Update") {
+                    item.category = selectedCategory
                     dismiss()
                 }
             }
