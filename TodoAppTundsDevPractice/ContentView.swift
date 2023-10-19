@@ -28,10 +28,15 @@ struct ContentView: View {
         
         // Filter items on name/title
         let filteredItems = items.compactMap { item in
+            
             let titleContainsQuery = item.title.range(of: searchQuery,
                                                        options: .caseInsensitive) != nil
             
-            return titleContainsQuery ? item : nil
+            // Now filtering for the category name/title
+            let categoryTitleContainsQuery = item.category?.title.range(of: searchQuery,
+                                                                        options: .caseInsensitive) != nil
+            
+            return (titleContainsQuery || categoryTitleContainsQuery) ? item : nil
         }
         
         return filteredItems
