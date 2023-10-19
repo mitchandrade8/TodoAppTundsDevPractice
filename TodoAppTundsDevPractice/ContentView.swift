@@ -44,7 +44,7 @@ struct ContentView: View {
     var filteredItems: [Item] {
         
         if searchQuery.isEmpty {
-            return items
+            return items.sort(on: selectedSortOption)
         }
         
         // Filter items on name/title
@@ -60,7 +60,7 @@ struct ContentView: View {
             return (titleContainsQuery || categoryTitleContainsQuery) ? item : nil
         }
         
-        return filteredItems
+        return filteredItems.sort(on: selectedSortOption)
         
     }
     
@@ -213,6 +213,25 @@ struct ContentView: View {
             modelContext.delete(item)
         }
     }
+}
+
+private extension [Item] {
+    
+    func sort(on option: SortOption) -> [Item] {
+        switch option {
+        case .title:
+            self.sorted(by: { $0.title < $1.title })
+        case .date:
+            self.sorted(by: { $0.timestamp < $1.timestamp })
+        case .category:
+            self.sorted(by: {
+                guard let firstItemTitle = $0.category?.title,
+                      let secondItemTitle = $1.category?.title else { return false }
+                return firstItemTitle < secondItemTitle
+            })
+        }
+    }
+    
 }
 
 #Preview {

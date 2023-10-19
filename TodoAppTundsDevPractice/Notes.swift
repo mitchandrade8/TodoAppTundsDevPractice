@@ -28,3 +28,8 @@ import Foundation
 // CRUD operations
 
 // Think i will just build apps with Youtubes and Go through paul hudsons SwiftData book
+
+
+// MARK: - Look at SwiftData documentation
+
+// Have trouble with some of the querying functionality when following along with the video.
