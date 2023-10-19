@@ -24,6 +24,8 @@ struct UpdateToDoView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @Query private var categories: [Category]
+    
     @State var selectedCategory: Category?
 
     @Bindable var item: Item
@@ -48,6 +50,9 @@ struct UpdateToDoView: View {
             }
         }
         .navigationTitle("Update ToDo")
+        .onAppear(perform: {
+            selectedCategory = item.category
+        })
     }
 }
 

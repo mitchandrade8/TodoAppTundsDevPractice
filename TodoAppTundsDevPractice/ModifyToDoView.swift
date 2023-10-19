@@ -25,13 +25,13 @@ struct CreateTodoView: View {
                 TextField("Name", text: $item.title)
             }
             
-            Section {
+            Section("General") {
                 DatePicker("Choose a date",
                            selection: $item.timestamp)
                 Toggle("Important?", isOn: $item.isCritical)
             }
             
-            Section {
+            Section("Select A Category") {
                 Picker("", selection: $selectedCategory) {
                     
                     ForEach(categories) { category in
