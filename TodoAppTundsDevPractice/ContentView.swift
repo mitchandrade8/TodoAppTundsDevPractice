@@ -18,10 +18,30 @@ struct ContentView: View {
     @State private var showCreateToDo = false
     @State private var toDoToEdit: Item?
     
+    
+    // Computed Property
+    var filteredItems: [Item] {
+        
+        if searchQuery.isEmpty {
+            return items
+        }
+        
+        // Filter items on name/title
+        let filteredItems = items.compactMap { item in
+            let titleContainsQuery = item.title.range(of: searchQuery,
+                                                       options: .caseInsensitive) != nil
+            
+            return titleContainsQuery ? item : nil
+        }
+        
+        return filteredItems
+        
+    }
+    
     var body: some View {
         NavigationStack {
             List {
-                ForEach(items) { item in
+                ForEach(filteredItems) { item in
                     
                     HStack {
                         VStack(alignment: .leading) {
@@ -91,6 +111,8 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("My To Do List")
+            .searchable(text: $searchQuery, 
+                        prompt: "Search for a to do or a category")
             .sheet(item: $toDoToEdit,
                    onDismiss: {
                 toDoToEdit = nil
