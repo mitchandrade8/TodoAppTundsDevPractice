@@ -137,7 +137,8 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("My To Do List")
-            .searchable(text: $searchQuery, 
+            .animation(.easeInOut, value: filteredItems)
+            .searchable(text: $searchQuery,
                         prompt: "Search for a to do or a category")
             .overlay {
                 if filteredItems.isEmpty {
