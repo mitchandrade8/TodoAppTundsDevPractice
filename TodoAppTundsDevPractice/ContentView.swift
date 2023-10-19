@@ -13,6 +13,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     
+    @State private var searchQuery = ""
     @State private var showCreateCategory = false
     @State private var showCreateToDo = false
     @State private var toDoToEdit: Item?
