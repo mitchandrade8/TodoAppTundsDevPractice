@@ -118,6 +118,12 @@ struct ContentView: View {
             .navigationTitle("My To Do List")
             .searchable(text: $searchQuery, 
                         prompt: "Search for a to do or a category")
+            .overlay {
+                if filteredItems.isEmpty {
+                    ContentUnavailableView.search
+                }
+                
+            }
             .sheet(item: $toDoToEdit,
                    onDismiss: {
                 toDoToEdit = nil
