@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import SwiftData
+
+actor ItemsContainer {
+    
+    @MainActor
+    static func create() -> ModelContainer {
+        
+    }
+    
+}

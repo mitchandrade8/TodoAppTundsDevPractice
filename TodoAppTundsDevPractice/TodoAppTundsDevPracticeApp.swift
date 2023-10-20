@@ -10,6 +10,7 @@ import SwiftData
 
 @main
 struct TodoAppTundsDevPracticeApp: App {
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

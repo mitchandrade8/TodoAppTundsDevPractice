@@ -17,6 +17,7 @@
 		7444AF932ADF029C008CC60C /* UpdateToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF922ADF029C008CC60C /* UpdateToDoView.swift */; };
 		7444AF952ADF23E9008CC60C /* CreateCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF942ADF23E9008CC60C /* CreateCategoryView.swift */; };
 		7444AF972ADF3190008CC60C /* ModifyToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444AF962ADF3190008CC60C /* ModifyToDoView.swift */; };
+		7494C78E2AE1F75A001A12F6 /* ItemsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7494C78D2AE1F75A001A12F6 /* ItemsContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		7444AF922ADF029C008CC60C /* UpdateToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToDoView.swift; sourceTree = "<group>"; };
 		7444AF942ADF23E9008CC60C /* CreateCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryView.swift; sourceTree = "<group>"; };
 		7444AF962ADF3190008CC60C /* ModifyToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyToDoView.swift; sourceTree = "<group>"; };
+		7494C78D2AE1F75A001A12F6 /* ItemsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				7444AF7E2ADD4F58008CC60C /* TodoAppTundsDevPracticeApp.swift */,
+				7494C78D2AE1F75A001A12F6 /* ItemsContainer.swift */,
 				7444AF802ADD4F58008CC60C /* ContentView.swift */,
 				7444AF8E2ADD517F008CC60C /* TodoView.swift */,
 				7444AF922ADF029C008CC60C /* UpdateToDoView.swift */,
@@ -159,6 +162,7 @@
 				7444AF812ADD4F58008CC60C /* ContentView.swift in Sources */,
 				7444AF912ADD53EB008CC60C /* Notes.swift in Sources */,
 				7444AF952ADF23E9008CC60C /* CreateCategoryView.swift in Sources */,
+				7494C78E2AE1F75A001A12F6 /* ItemsContainer.swift in Sources */,
 				7444AF7F2ADD4F58008CC60C /* TodoAppTundsDevPracticeApp.swift in Sources */,
 				7444AF932ADF029C008CC60C /* UpdateToDoView.swift in Sources */,
 				7444AF8F2ADD517F008CC60C /* TodoView.swift in Sources */,
