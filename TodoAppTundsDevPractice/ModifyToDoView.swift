@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct CreateTodoView: View {
     
@@ -17,7 +18,8 @@ struct CreateTodoView: View {
     
     @State var item = Item()
     @State var selectedCategory: Category?
-    
+    @State var selectedPhoto: PhotosPickerItem?
+
     var body: some View {
         List {
             
@@ -33,13 +35,13 @@ struct CreateTodoView: View {
             
             Section("Select A Category") {
                 
+                
                 if categories.isEmpty {
                     
                     ContentUnavailableView("No Categories",
                                            systemImage: "archivebox")
                     
                 } else {
-                    
                     Picker("", selection: $selectedCategory) {
                         
                         ForEach(categories) { category in
@@ -52,9 +54,42 @@ struct CreateTodoView: View {
                     }
                     .labelsHidden()
                     .pickerStyle(.inline)
-                    
                 }
+                
+
             }
+            
+            Section {
+                
+                if let selectedPhotoData = item.image,
+                   let uiImage = UIImage(data: selectedPhotoData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
+                }
+                
+                PhotosPicker(selection: $selectedPhoto,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    Label("Add Image", systemImage: "photo")
+                }
+                
+                if item.image != nil {
+                    
+                    Button(role: .destructive) {
+                        withAnimation {
+                            selectedPhoto = nil
+                            item.image = nil
+                        }
+                    } label: {
+                        Label("Remove Image", systemImage: "xmark")
+                            .foregroundStyle(.red)
+                    }
+                }
+ 
+            }
+            
 
             Section {
                 Button("Create") {
@@ -81,6 +116,11 @@ struct CreateTodoView: View {
                 .disabled(item.title.isEmpty)
             }
         }
+        .task(id: selectedPhoto) {
+            if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+                item.image = data
+            }
+        }
     }
 }
 
@@ -92,7 +132,9 @@ private extension CreateTodoView {
         selectedCategory?.items?.append(item)
     }
 }
-
+//
+// Xcode 15 Beta 2 has a previews bug so this is why we're commenting this out...
+// Ref: https://mastodon.social/@denisdepalatis/110561280521551715
 #Preview {
     NavigationStack {
         CreateTodoView()

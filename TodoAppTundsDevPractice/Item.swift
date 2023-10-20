@@ -14,10 +14,13 @@ final class Item {
     var timestamp: Date
     var isCritical: Bool
     var isCompleted: Bool
-    
+
     @Relationship(deleteRule: .nullify, inverse: \Category.items)
     var category: Category?
-
+    
+    @Attribute(.externalStorage)
+    var image: Data?
+    
     init(title: String = "",
          timestamp: Date = .now,
          isCritical: Bool = false,
@@ -37,3 +40,4 @@ extension Item {
               isCritical: true)
     }
 }
+

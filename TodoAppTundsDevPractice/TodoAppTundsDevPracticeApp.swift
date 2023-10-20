@@ -9,12 +9,14 @@ import SwiftUI
 import SwiftData
 
 @main
-struct TodoAppTundsDevPracticeApp: App {
+struct ToDosApp: App {
+
+    @AppStorage("isFirstTimeLaunch") private var isFirstTimeLaunch: Bool = true
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: Item.self)
         }
+        .modelContainer(ItemsContainer.create(shouldCreateDefaults: &isFirstTimeLaunch))
     }
 }

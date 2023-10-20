@@ -16,8 +16,19 @@ class Category {
     
     var items: [Item]?
     
-    init(title: String = " ") {
+    init(title: String = "") {
         self.title = title
+    }
+}
+
+extension Category {
+    
+    static var defaults: [Category] {
+        [
+            .init(title: "🙇🏾‍♂️ Study"),
+            .init(title: "🤝 Routine"),
+            .init(title: "🏠 Family")
+        ]
     }
 }
 
@@ -31,15 +42,15 @@ struct CreateCategoryView: View {
     
     var body: some View {
         List {
-            Section("Cateogry Title") {
+            Section("Category Title") {
                 TextField("Enter title here",
-                text: $title)
+                          text: $title)
                 Button("Add Category") {
                     withAnimation {
-                        // Fixed a bug with delete a recently created Category
                         let category = Category(title: title)
                         modelContext.insert(category)
                         category.items = []
+                        title = ""
                     }
                 }
                 .disabled(title.isEmpty)
@@ -53,6 +64,7 @@ struct CreateCategoryView: View {
                                            systemImage: "archivebox")
                     
                 } else {
+                    
                     ForEach(categories) { category in
                         Text(category.title)
                             .swipeActions {
@@ -63,14 +75,17 @@ struct CreateCategoryView: View {
                                 } label: {
                                     Label("Delete", systemImage: "trash.fill")
                                 }
-
                             }
                     }
                 }
+                
+
             }
+            
         }
-        .navigationTitle("Add New Category")
+        .navigationTitle("Add Category")
         .toolbar {
+            
             ToolbarItem(placement: .cancellationAction) {
                 Button("Dismiss") {
                     dismiss()
@@ -78,8 +93,4 @@ struct CreateCategoryView: View {
             }
         }
     }
-}
-
-#Preview {
-    CreateCategoryView()
 }
