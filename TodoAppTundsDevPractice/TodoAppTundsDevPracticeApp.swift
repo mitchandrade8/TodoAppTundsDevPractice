@@ -11,6 +11,7 @@ import SwiftData
 @main
 struct ToDosApp: App {
 
+    // Track whether this is the first time launch
     @AppStorage("isFirstTimeLaunch") private var isFirstTimeLaunch: Bool = true
     
     var body: some Scene {
