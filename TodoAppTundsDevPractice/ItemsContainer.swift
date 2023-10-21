@@ -15,6 +15,8 @@ actor ItemsContainer {
         let schema = Schema([Item.self])
         let configuration = ModelConfiguration()
         let container = try! ModelContainer(for: schema, configurations: [configuration])
+        
+        // Whether or not to display default categories
         if shouldCreateDefaults {
             shouldCreateDefaults = false
             let categories = CategoriesJSONDecoder.decode(from: "DefaultCategories")
