@@ -18,7 +18,7 @@ actor ItemsContainer {
         
         // Whether or not to display default categories
         if shouldCreateDefaults {
-            shouldCreateDefaults = false
+            
             let categories = CategoriesJSONDecoder.decode(from: "DefaultCategories")
             if !categories.isEmpty {
                 categories.forEach { item in
@@ -26,6 +26,7 @@ actor ItemsContainer {
                     container.mainContext.insert(category)
                 }
             }
+            shouldCreateDefaults = false
         }
 
         return container
