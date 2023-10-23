@@ -23,3 +23,7 @@ struct CategoriesJSONDecoder {
         return categories
     }
 }
+
+// MARK: - Notes
+
+/// To handle JSON from an API or local file
